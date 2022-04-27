@@ -1,5 +1,11 @@
 const socketIo = (io) => {
-  // code here
-}
+  io.on('connection', (socket) => {
+    console.log('client connect:', socket.id);
 
-module.exports = socketIo
+    socket.on('disconnect',()  => {
+      console.log('client disconnect');
+    })
+  })
+ }
+ 
+ module.exports = socketIo
