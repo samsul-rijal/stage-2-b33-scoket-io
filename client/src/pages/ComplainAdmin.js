@@ -21,11 +21,17 @@ export default function ComplainAdmin() {
     useEffect(() =>{
         socket = io('http://localhost:5000', {
             // code here
+            auth: {
+                token: localStorage.getItem("token") // we must set options to get access to socket server
+            }
         })
         loadContacts()
 
         // code here 
-        
+        socket.on("connect_error", (err) => {
+            console.error(err.message); // not authorized
+        });
+
         return () => {
             socket.disconnect()
         }
